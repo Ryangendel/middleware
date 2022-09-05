@@ -6,15 +6,20 @@ const path = require("path")
 
 function banana(req, res, next){
     req.body.userSignIn = true
-    req.body.runa = "I love my dog"
-    next()
+    if(req.body.password == process.env.PASSWORD){
+        req.body.admin = true
+        req.body.runa = "I love my dog"
+        req.body.userSignIn = true
+        next()
+    } 
+    res.send("login dummy")
 }
 
 app.use(bodyParser.urlencoded({ extended: false }))
 //CRUD
 // parse application/json
 app.use(bodyParser.json())
-app.use(banana)
+//app.use(banana)
 //R=> GET
 app.get("/home", (req, res)=>{
     res.sendFile(path.join(__dirname,'frontend','index.html'))
@@ -25,7 +30,7 @@ app.get("/api/bulldog", (req, res)=>{
     res.send({name:"Runa", age:4, breed:"Pit"})
 })
 
-app.post("/api/bulldog", (req, res)=>{
+app.post("/api/bulldog", banana, (req, res)=>{
     console.log("----------------------THIS IS SOME INFO THAT I WANT TMAKE SURE MY HEROKU IS WOKRING")
     res.send({name:req.body.name, age:req.body.age, breed:req.body.breed})
 })
