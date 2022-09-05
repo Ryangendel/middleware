@@ -10,10 +10,10 @@ function banana(req, res, next){
         req.body.admin = true
         req.body.runa = "I love my dog"
         req.body.userSignIn = true
-        next()
+        next()  
     } else{
         res.send("login dummy")
-    }
+    }    
 }
 
 app.use(bodyParser.urlencoded({ extended: false }))
