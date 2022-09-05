@@ -5,14 +5,15 @@ const PORT = process.env.PORT || 3000
 const path = require("path")
 
 function banana(req, res, next){
-    req.body.userSignIn = true
-    if(req.body.password == process.env.PASSWORD){
+  
+     if(req.body.password == process.env.PASSWORD){
         req.body.admin = true
         req.body.runa = "I love my dog"
         req.body.userSignIn = true
         next()
-    } 
-    res.send("login dummy")
+    } else{
+        res.send("login dummy")
+    }
 }
 
 app.use(bodyParser.urlencoded({ extended: false }))
